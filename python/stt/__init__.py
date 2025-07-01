@@ -1,4 +1,6 @@
 """stt module, created, built and maintained by JoBe"""
+
+
 # MIT License
 
 # Copyright (c) 2025, JoBe
@@ -77,7 +79,8 @@ def _is_traversable(tree):
     """
     Check if the tree is traversable.
     Internally this is done by calling
-    `_walk_tree` and catching Errors.
+    both `_walk_tree` and `_reconstruct` 
+    and catching Errors.
     """
 
     try:
@@ -98,14 +101,20 @@ def _is_reconstructed(tree):
 def _reconstruct(tree):
     if _is_reconstructed(tree):
         return tree
-    final = ""
+    final = ()
     counter = 0
-    for level, node, ef in tree:
+    prev_level = 0
+    for level, node, ellipsis_following in tree:
         if counter == 0:
-            final += _str_of_node(node) + ", "
-            if ef:
-                final += "..."
-        
+            final += (node,)
+            if ellipsis_following:
+                final += (...,)
+        if level > prev_level:
+                ...
+        elif level < prev_level:
+                ...
+        else: 
+                ...
         counter += 1
 
 
