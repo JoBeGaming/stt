@@ -1,4 +1,7 @@
-"""stt module, created, built and maintained by JoBe"""
+# stt module in Python.
+
+# (c) JoBe, 2025
+
 
 
 # MIT License
@@ -26,6 +29,7 @@
 # Note that this module is not typed, 
 # as it might be used with Python < 3.6
 
+
 import sys
 
 
@@ -33,6 +37,12 @@ __all__ = [
     "dump",
 ]
 
+
+class STTError(Exception):
+    """
+    Base class for all STT
+    related errors.
+    """
 
 
 def _walk_tree(tree, /, *, level = 0):
@@ -139,7 +149,7 @@ def dump(tree, *, file=sys.stdout):
     # trees, as long as they are
     # traversable.
     if not _is_traversable(tree):
-        raise TypeError(f"expected stt tree instance, got {tree}")
+        raise TypeError("expected stt tree instance, got" +  str(tree))
     # If the tree is already in 
     # the right form, this call
     # won't change it, except 
@@ -147,3 +157,19 @@ def dump(tree, *, file=sys.stdout):
     iterable_tree = _make_iterable(_reconstruct(tree))
     for node in iterable_tree:
         print(_reconstruct_node(node), file=file)
+
+def dump_iterable(tree):
+    # There is no call to the
+    # `_check_validity` function,
+    # as we can also dump invalid
+    # trees, as long as they are
+    # traversable.
+    if not _is_traversable(tree):
+        raise TypeError("expected stt tree instance, got" +  str(tree))
+    # If the tree is already in 
+    # the right form, this call
+    # won't change it, except 
+    # for making it iterable
+    iterable_tree = _make_iterable(_reconstruct(tree))
+    for node in iterable_tree:
+        yield _reconstruct_node(node)
