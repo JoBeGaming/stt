@@ -143,33 +143,76 @@ def _make_iterable(tree):
 
 
 def dump(tree, *, file=sys.stdout):
+    """
+    Dump the given tree, e.g.:
+
+    >>> Tree = a[b, c, d[e, ...], f]
+    >>> dump(Tree)
+    |- a
+    |-- b
+    |-- c
+    |-- d
+    |--- e
+    |--- ...
+    |-- f
+
+    Note that the order is preserved.
+    The tree is not checked for validity.
+    """
+    
     # There is no call to the
     # `_check_validity` function,
     # as we can also dump invalid
     # trees, as long as they are
     # traversable.
+    
     if not _is_traversable(tree):
         raise TypeError("expected stt tree instance, got" +  str(tree))
+    
     # If the tree is already in 
     # the right form, this call
     # won't change it, except 
     # for making it iterable
+    
     iterable_tree = _make_iterable(_reconstruct(tree))
     for node in iterable_tree:
         print(_reconstruct_node(node), file=file)
 
+
 def dump_iterable(tree):
+    """
+    Dump the given tree as a generator, e.g.:
+
+    >>> Tree = a[b, c, d[e, ...], f]
+    >>> for node in dump_iterable(Tree):
+    ...     print(node)
+    ...
+    |- a
+    |-- b
+    |-- c
+    |-- d
+    |--- e
+    |--- ...
+    |-- f
+
+    Note that the order is preserved.
+    The tree is not checked for validity.
+    """
+    
     # There is no call to the
     # `_check_validity` function,
     # as we can also dump invalid
     # trees, as long as they are
     # traversable.
+    
     if not _is_traversable(tree):
         raise TypeError("expected stt tree instance, got" +  str(tree))
+    
     # If the tree is already in 
     # the right form, this call
     # won't change it, except 
     # for making it iterable
+    
     iterable_tree = _make_iterable(_reconstruct(tree))
     for node in iterable_tree:
         yield _reconstruct_node(node)
