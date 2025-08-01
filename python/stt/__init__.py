@@ -35,6 +35,7 @@ import sys
 
 __all__ = [
     "dump",
+    "dump_iterable"
 ]
 
 
