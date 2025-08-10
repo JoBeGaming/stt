@@ -3,33 +3,6 @@
 # (c) JoBe, 2025
 
 
-
-# MIT License
-
-# Copyright (c) 2025, JoBe
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
-# Note that this module is not typed, 
-# as it might be used with Python < 3.6
-
-
 import sys
 
 
@@ -160,21 +133,21 @@ def dump(tree, *, file=sys.stdout):
     Note that the order is preserved.
     The tree is not checked for validity.
     """
-    
+
     # There is no call to the
     # `_check_validity` function,
     # as we can also dump invalid
     # trees, as long as they are
     # traversable.
-    
+
     if not _is_traversable(tree):
         raise TypeError("expected stt tree instance, got" +  str(tree))
-    
+
     # If the tree is already in 
     # the right form, this call
     # won't change it, except 
     # for making it iterable
-    
+
     iterable_tree = _make_iterable(_reconstruct(tree))
     for node in iterable_tree:
         print(_reconstruct_node(node), file=file)
@@ -199,21 +172,21 @@ def dump_iterable(tree):
     Note that the order is preserved.
     The tree is not checked for validity.
     """
-    
+
     # There is no call to the
     # `_check_validity` function,
     # as we can also dump invalid
     # trees, as long as they are
     # traversable.
-    
+
     if not _is_traversable(tree):
         raise TypeError("expected stt tree instance, got" +  str(tree))
-    
+
     # If the tree is already in 
     # the right form, this call
     # won't change it, except 
     # for making it iterable
-    
+
     iterable_tree = _make_iterable(_reconstruct(tree))
     for node in iterable_tree:
         yield _reconstruct_node(node)
