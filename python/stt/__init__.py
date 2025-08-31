@@ -39,18 +39,22 @@ def _walk_tree(tree, /, *, level = 0):
         tree = (tree,)
     if tree == (...,):
         return None
+
     for tp in tree:
         if tp is ...:
+
             for index_of_ellipsis_owner in range(len(final) - 1, -1, -1):
                 if final[index_of_ellipsis_owner][0] == level:
                     prev_args = final[index_of_ellipsis_owner][:-1]
                     final[index_of_ellipsis_owner] = (prev_args + (True,))
                     break
             continue
+        
         origin = _get_node_origin(tp, allow_none=True, allow_all=True)
         args = _get_node_args(tp, allow_all=True)
         if origin is None:
             final.append((level, tp, False))
+        
         else:
             final.append((level, origin, False))
             inner = _walk_tree(args, level=level + 1)
@@ -85,14 +89,18 @@ def _is_reconstructed(tree):
 def _reconstruct(tree):
     if _is_reconstructed(tree):
         return tree
+    
     final = ()
     counter = 0
     prev_level = 0
+    
     for level, node, ellipsis_following in tree:
+        
         if counter == 0:
             final += (node,)
             if ellipsis_following:
                 final += (...,)
+        
         if level > prev_level:
                 ...
         elif level < prev_level:
