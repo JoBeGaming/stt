@@ -45,6 +45,7 @@ def _walk_tree(tree, /, *, level = 0):
     if tree == (...,):
         return None
 
+
     for tp in tree:
         if tp is ...:
 
@@ -61,6 +62,7 @@ def _walk_tree(tree, /, *, level = 0):
 
         if origin is None:
             final.append((level, tp, False))
+
         else:
             final.append((level, origin, False))
             inner = _walk_tree(args, level=level + 1)
