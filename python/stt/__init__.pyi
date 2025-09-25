@@ -14,7 +14,7 @@ class STTError(Exception):
     ...
 
 
-Tree: TypeAlias = Union[Node, GenericAlias, tuple[Tree, ...], ellipsis, None]
+Tree: TypeAlias = Node | GenericAlias | tuple[Tree, ...] | ellipsis | None
 Node: TypeAlias =  Any | GenericAlias | tuple[Node, ...] | ellipsis
 
 
