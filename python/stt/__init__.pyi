@@ -1,4 +1,4 @@
-from typing import Any, Generator, TypeAlias, Union
+from typing import Any, Generator, TypeAlias
 from types import GenericAlias
 
 
